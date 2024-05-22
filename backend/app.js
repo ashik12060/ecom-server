@@ -36,6 +36,7 @@ const productRoute = require('./routes/productRoute');
 const itemRoute = require('./routes/itemRoute');
 const galleryRoute = require('./routes/galleryRoute');
 const orderRoutes = require('./routes/orderRoutes');
+const sellerProductRoute = require('./routes/sellerProductRoute'); 
 
 
 
@@ -98,6 +99,7 @@ app.use('/api', productRoute);
 app.use('/api',itemRoute);
 app.use('/api',galleryRoute);
 app.use('/api', orderRoutes);
+app.use('/api', sellerProductRoute);
 
 
 

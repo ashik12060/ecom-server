@@ -18,7 +18,7 @@ exports.createPostProduct = async (req, res, next) => {
   } = req.body;
 
   try {
-    //upload image in cloudinary
+    // cloudinary setup
     const result = await cloudinary.uploader.upload(image, {
       folder: "products",
       width: 1200,
@@ -48,6 +48,7 @@ exports.createPostProduct = async (req, res, next) => {
   }
 };
 
+// single product
 exports.showProduct = async (req, res, next) => {
   try {
     const products = await Product.find()
@@ -62,6 +63,7 @@ exports.showProduct = async (req, res, next) => {
   }
 };
 
+// single product
 exports.showSingleProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate(
@@ -76,9 +78,10 @@ exports.showSingleProduct = async (req, res, next) => {
     next(error);
   }
 };
+ 
 
 
-
+// Delete showProduct
 exports.deleteProduct = async (req, res, next) => {
   const currentProduct = await Product.findById(req.params.id);
 
@@ -99,6 +102,7 @@ exports.deleteProduct = async (req, res, next) => {
   }
 };
 
+// update product
 exports.updateProduct = async (req, res, next) => {
   try {
     const {
@@ -153,6 +157,7 @@ exports.updateProduct = async (req, res, next) => {
   }
 };
 
+// comments
 exports.addComment = async (req, res, next) => {
   const { comment } = req.body;
   try {
@@ -176,6 +181,7 @@ exports.addComment = async (req, res, next) => {
   }
 };
 
+// likes
 exports.addLike = async (req, res, next) => {
   try {
     const product = await Product.findByIdAndUpdate(
@@ -200,6 +206,7 @@ exports.addLike = async (req, res, next) => {
   }
 };
 
+// like removing functionality
 exports.removeLike = async (req, res, next) => {
   try {
     const product = await Product.findByIdAndUpdate(
