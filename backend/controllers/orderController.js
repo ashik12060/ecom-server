@@ -56,6 +56,22 @@ exports.getOrderById = async (req, res) => {
   }
 };
 
+
+exports.getOrdersByUserId = async (req, res) => {
+  try {
+    const orders = await Order.find({ userId: req.params.userId });
+    if (!orders) {
+      return res.status(404).json({ success: false, message: "No orders found for this user" });
+    }
+    res.status(200).json({ success: true, orders });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch orders" });
+  }
+};
+
+
+
 // Delete order by ID
 exports.deleteOrderById = async (req, res) => {
   try {
@@ -73,3 +89,4 @@ exports.deleteOrderById = async (req, res) => {
     res.status(500).json({ success: false, message: "Failed to delete order" });
   }
 };
+
