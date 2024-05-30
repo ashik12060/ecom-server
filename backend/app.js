@@ -13,8 +13,10 @@ const xss = require("xss-clean");
 const rateLimit = require('express-rate-limit')
 const hpp = require('hpp');
 const axios = require('axios');
+const admin = require('firebase-admin');
 
-
+// firebase
+const serviceAccount = require('./config/serviceAccountKey.json');
 
 //adding socket.io configuration
 const http = require('http');
@@ -36,10 +38,12 @@ const productRoute = require('./routes/productRoute');
 const itemRoute = require('./routes/itemRoute');
 const galleryRoute = require('./routes/galleryRoute');
 const orderRoutes = require('./routes/orderRoutes');
-const sellerProductRoute = require('./routes/sellerProductRoute'); 
+const sellerRoute = require('./routes/sellerRoutes');
 
-
-
+// firebase initialization
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
 
 //database connection
 mongoose.connect(process.env.DATABASE, {
@@ -99,7 +103,7 @@ app.use('/api', productRoute);
 app.use('/api',itemRoute);
 app.use('/api',galleryRoute);
 app.use('/api', orderRoutes);
-app.use('/api', sellerProductRoute);
+app.use('/api', sellerRoute);
 
 
 

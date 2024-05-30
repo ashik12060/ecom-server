@@ -10,7 +10,7 @@ exports.createOrder = async (req, res) => {
     const data = [...req.body].map((itm) => ({
       productId: itm._id,
       quantity: itm.quantity,
-      price: itm.feature1,
+      price: itm.price,
     }));
     const newOrder = new Order({
       userId: decoded.id,

@@ -13,13 +13,17 @@ const productSchema = new mongoose.Schema(
             required: [true, "content is required"],
         },
         // features start
-        feature1: {
+        price: {
             type: String,
-            required: [true, "feature1 is required"],
+            required: [true, "price is required"],
         },
-        feature2: {
+        // price: {
+        //     type: String,
+        //     required: [true, "price is required"],
+        // },
+        brand: {
             type: String,
-            required: [false, "feature2 is required"],
+            required: [false, "brand is required"],
         },
        
         postedBy: {

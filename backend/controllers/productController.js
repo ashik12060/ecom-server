@@ -9,8 +9,8 @@ exports.createPostProduct = async (req, res, next) => {
   const {
     title,
     content,
-    feature1,
-    feature2,
+    price,
+    brand,
     postedBy,
     image,
     likes,
@@ -28,8 +28,8 @@ exports.createPostProduct = async (req, res, next) => {
     const product = await Product.create({
       title,
       content,
-      feature1,
-      feature2,
+      price,
+      brand,
       
       postedBy: req.user._id,
       image: {
@@ -108,8 +108,8 @@ exports.updateProduct = async (req, res, next) => {
     const {
       title,
       content,
-      feature1,
-      feature2,
+      price,
+      brand,
       
       image,
     } = req.body;
@@ -119,8 +119,8 @@ exports.updateProduct = async (req, res, next) => {
     const data = {
       title: title || currentProduct.title,
       content: content || currentProduct.content,
-      feature1: feature1 || currentProduct.feature1,
-      feature2: feature2 || currentProduct.feature2,
+      price: price || currentProduct.price,
+      brand: brand || currentProduct.brand,
       
       image: image || currentProduct.image,
     };
