@@ -14,5 +14,8 @@ router.get('/logout', logout);
 router.get('/me', isAuthenticated, userProfile);
 // /api/users
 router.get('/users', getAllUsers);
+// router.get('/users',getAllUsers, (req, res) => {
+//     res.json({ message: 'Success!' });
+// });
 
 module.exports = router;

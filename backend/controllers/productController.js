@@ -231,3 +231,29 @@ exports.removeLike = async (req, res, next) => {
   }
 };
 
+//pagination
+// Pagination for products
+exports.showPaginatedProducts = async (req, res, next) => {
+  const page = parseInt(req.query.page) || 1; // Current page number
+  const limit = parseInt(req.query.limit) || 12; // Number of products per page
+
+  try {
+    const totalProducts = await Product.countDocuments();
+    const products = await Product.find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
+      .populate("postedBy", "name");
+
+    res.status(200).json({
+      success: true,
+      products,
+      totalPages: Math.ceil(totalProducts / limit),
+      currentPage: page,
+      totalProducts
+    });
+  } catch (error) {
+    console.error(error);
+    next(new ErrorResponse("Failed to load products", 500));
+  }
+};

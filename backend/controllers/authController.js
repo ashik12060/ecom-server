@@ -87,7 +87,7 @@ exports.userProfile = async (req, res, next) => {
 // get all users
 exports.getAllUsers = async (req, res) => {
     try {
-      const users = await User.find({}, { password: 0 }); // Exclude password field from the result
+      const users = await User.find({role: 'user'}, { password: 0 }); // Exclude password field from the result
       res.json(users);
     } catch (error) {
       console.error("Error fetching users:", error);
