@@ -1,6 +1,7 @@
 
 const User = require('../models/userModel');
 const ErrorResponse = require('../utils/errorResponse');
+const admin = require('../config/firebaseAdmin');
 
 exports.signup = async (req, res, next) => {
     const { email } = req.body;
@@ -92,5 +93,34 @@ exports.getAllUsers = async (req, res) => {
     } catch (error) {
       console.error("Error fetching users:", error);
       res.status(500).json({ message: "Internal server error" });
+    }
+  };
+
+  
+
+// Google sign-in
+exports.googleLogin = async (req, res) => {
+    const { token } = req.body;
+  
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      const { email, name, picture, uid } = decodedToken;
+  
+      // Check if user exists
+      let user = await User.findOne({ email });
+  
+      if (!user) {
+        user = new User({ email, name, picture, googleId: uid });
+        await user.save();
+      }
+  
+      // Create JWT token
+      const jwtToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+      });
+  
+      res.status(200).json({ token: jwtToken, user });
+    } catch (error) {
+      res.status(400).json({ message: 'Invalid token', error });
     }
   };
